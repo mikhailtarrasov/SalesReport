@@ -1,0 +1,24 @@
+﻿@using System.Web.Services.Protocols
+@using Тестовое_задание.Models
+@model ReportingPeriodViewModel
+
+@{
+    ViewBag.Title = "Отчетный период";
+}
+
+<h2>Сформировать отчет</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="startDate">С</label>
+        @Html.TextBoxFor(model => Model.StartDate, new { @class = "form-control", id = "startDate", type = "date", required = "required" })
+    </div>
+    <div class="form-group">
+        <label for="endDate">По</label>
+        @Html.TextBoxFor(model => Model.EndDate, new { @class = "form-control", id = "endDate", type = "date", required = "required" })
+    </div>
+
+    <button class="btn btn-primary" type="submit">Сформировать отчёт</button> <br /><br />
+    @Html.ActionLink("Вернуться на главную страницу", "Index")
+}

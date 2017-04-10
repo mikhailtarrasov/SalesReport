@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Главная страница";
+}
+
+<div class="jumbotron">
+    <h2>Тестовое задание для fuse8, на должность .Net разработчика</h2><br />
+
+    <p><b>Задание</b><br/>
+        Необходимо создать веб-приложение ASP.NET MVC (желательно на 5 или .Core) на C#, которое подсоединяется к базе данных и строит отчёт (в Excel-файл, также не лишним будет отображение на странице), после чего отправляет его на e-mail.<br />
+        Отчёт по продажам должен строиться за определенный период (предусмотреть возможность самому задавать временной диапазон) и содержать следующую информацию: номер заказа, дата заказа, артикул товара, название товара, количество реализованных единиц товара, цена реализации за единицу продукции.<br />
+        Excel-файл должен содержать вычисляемый столбец (столбец с формулой), который для каждой позиции должен считать стоимость.<br />
+        Данные для отчёта находятся в базе данных Northwind (она присоединена в виде архивированного bak-файла, нужно ее восстановить на SQL Server).</p>
+    <p>        
+        <a class="btn btn-primary btn-lg" href="Home/ReportingPeriod" role="button">Перейти к формировке отчета</a>
+    </p>
+</div>
+
+<hr />
+<footer style="margin-left: 60px; margin-right: 60px;">
+    <p>
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Тарасов Михаил Сергеевич
+    </p>
+    <p>
+        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Россия, Челябинск
+    </p>
+    <p>
+        <span class="glyphicon glyphicon-phone" aria-hidden="true"></span> +7 908 581 93 92
+    </p>
+    <p>
+        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> mikhailtarrasov@gmail.com
+    </p>
+    <p>&copy; @DateTime.Now.Year - ASP.NET MVC 5</p>
+</footer>
+<br/>

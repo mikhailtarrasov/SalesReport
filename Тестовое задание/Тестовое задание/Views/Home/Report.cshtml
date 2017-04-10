@@ -1,4 +1,6 @@
-﻿
+﻿@using Тестовое_задание.Models
+@*@model OrderItem*@
+@model IEnumerable<OrderItem>
 @{
     ViewBag.Title = "Report";
 }
@@ -7,4 +9,48 @@
 
 <p>Отчетный период: @ViewBag.startDate.ToString()г. - @ViewBag.endDate.ToString()г.</p>
 
-
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)    
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Quantity)
+            </td>
+        </tr>
+    }
+</table>

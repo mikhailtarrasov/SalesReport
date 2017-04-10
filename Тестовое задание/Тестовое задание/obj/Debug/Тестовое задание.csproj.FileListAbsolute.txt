@@ -20,3 +20,5 @@ C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестов
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\EntityFramework.SqlServer.dll
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\EntityFramework.xml
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\EntityFramework.SqlServer.xml
+C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\AutoMapper.dll
+C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\AutoMapper.xml

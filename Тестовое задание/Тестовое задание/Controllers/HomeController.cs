@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Тестовое_задание.Models;
 
 namespace Тестовое_задание.Controllers
@@ -40,7 +43,28 @@ namespace Тестовое_задание.Controllers
             {
                 ViewBag.startDate = startDate.Value.ToString("dd.MM.yyyy");
                 ViewBag.endDate = endDate.Value.ToString("dd.MM.yyyy");
-                return View();
+                var orders = Db.Order.Where(x => x.OrderDate > startDate && x.OrderDate < endDate);
+                if (orders.Any())
+                {
+                    Mapper.Initialize(cfg => cfg.CreateMap<OrderDetail, OrderItem>()
+                        .ForMember(x => x.OrderId, x => x.MapFrom(od => od.OrderID))
+                        .ForMember(x => x.OrderDate, x => x.MapFrom(od => od.Order.OrderDate))
+                        .ForMember(x => x.ProductId, x => x.MapFrom(od => od.ProductID))
+                        .ForMember(x => x.ProductName, x => x.MapFrom(od => od.Product.Name))
+                        .ForMember(x => x.Quantity, x => x.MapFrom(od => od.Quantity))
+                        .ForMember(x => x.UnitPrice, x => x.MapFrom(od => od.UnitPrice))       // Нужно ли учитывать скидку здесь?
+                        );
+
+                    List<OrderItem> orderItemsList = new List<OrderItem>();
+                    foreach (var order in orders)
+                    {
+                        foreach (var orderDetail in order.OrderDetail)
+                        {
+                            orderItemsList.Add(Mapper.Map<OrderDetail, OrderItem>(orderDetail));
+                        }
+                    }
+                    return View(orderItemsList);
+                }
             }
             return RedirectToAction("ReportingPeriod", "Home");
         }

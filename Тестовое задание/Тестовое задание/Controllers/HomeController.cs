@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing;
 using Тестовое_задание.Models;
 
 namespace Тестовое_задание.Controllers
@@ -63,10 +66,37 @@ namespace Тестовое_задание.Controllers
                             orderItemsList.Add(Mapper.Map<OrderDetail, OrderItem>(orderDetail));
                         }
                     }
+                    CreateSpreadsheetReport(orderItemsList);
+
                     return View(orderItemsList);
                 }
             }
             return RedirectToAction("ReportingPeriod", "Home");
+        }
+
+        public void CreateSpreadsheetReport(List<OrderItem> orderItems)
+        {
+            using (ExcelPackage excelPackage = new ExcelPackage(new FileInfo("D:\\report.xlsx")))
+            {
+                excelPackage.Workbook.Worksheets.Add("Report");
+                excelPackage.Workbook.Worksheets[1].SetValue(1, 1, "Номер заказа");
+                excelPackage.Workbook.Worksheets[1].SetValue(1, 2, "Дата заказа");
+                excelPackage.Workbook.Worksheets[1].SetValue(1, 3, "Артикул товара");
+                excelPackage.Workbook.Worksheets[1].SetValue(1, 4, "Название товара");
+                excelPackage.Workbook.Worksheets[1].SetValue(1, 5, "Кол-во реализ. ед. товара");
+                excelPackage.Workbook.Worksheets[1].SetValue(1, 6, "Цена реализ. за ед. прод.");
+
+                for (int j = 0; j < orderItems.Count; j++)
+                {
+                    excelPackage.Workbook.Worksheets[1].SetValue(j + 2, 1, orderItems[j].OrderId);
+                    excelPackage.Workbook.Worksheets[1].SetValue(j + 2, 2, orderItems[j].OrderDate.ToShortDateString());
+                    excelPackage.Workbook.Worksheets[1].SetValue(j + 2, 3, orderItems[j].ProductId);
+                    excelPackage.Workbook.Worksheets[1].SetValue(j + 2, 4, orderItems[j].ProductName);
+                    excelPackage.Workbook.Worksheets[1].SetValue(j + 2, 5, orderItems[j].Quantity);
+                    excelPackage.Workbook.Worksheets[1].SetValue(j + 2, 6, orderItems[j].UnitPrice);
+                }
+                excelPackage.Save();
+            }
         }
     }
 }

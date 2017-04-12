@@ -29,9 +29,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
         </th>
-        <th>
-            @Html.DisplayName("Сумма")
-        </th>
     </tr>
     @foreach (var item in Model)
     {
@@ -53,10 +50,6 @@
             </td>
             <td>
                 @Html.DisplayFor(model => item.Quantity)
-            </td>
-            <td>
-                @{ var summ = (item.Quantity * item.UnitPrice).ToString(); }
-                @Html.Display(summ)
             </td>
         </tr>
     }

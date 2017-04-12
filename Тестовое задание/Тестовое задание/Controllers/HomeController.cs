@@ -55,9 +55,8 @@ namespace Тестовое_задание.Controllers
         public List<OrderItem> CreateOrdersItemsList(IQueryable<Order> orders)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<OrderDetail, OrderItem>()
-                        .ForMember(x => x.OrderDate, x => x.MapFrom(od => od.Order.OrderDate.Value.ToShortDateString()))
-                        .ForMember(x => x.ProductName, x => x.MapFrom(od => od.Product.Name))       // Нужно ли учитывать скидку здесь?
-                        );
+                .ForMember(x => x.OrderDate, x => x.MapFrom(od => od.Order.OrderDate.Value.ToShortDateString()))
+                .ForMember(x => x.ProductName, x => x.MapFrom(od => od.Product.Name)));       // Нужно ли учитывать скидку здесь?
 
             List<OrderItem> orderItemsList = new List<OrderItem>();
             foreach (var order in orders)
@@ -93,15 +92,15 @@ namespace Тестовое_задание.Controllers
 
                 for (int j = 0; j < orderItems.Count; j++)
                 {
-                    worksheet.SetValue(j + 2, 1, orderItems[j].OrderId);
-                    worksheet.SetValue(j + 2, 2, orderItems[j].OrderDate);
-                    worksheet.SetValue(j + 2, 3, orderItems[j].ProductId);
-                    worksheet.SetValue(j + 2, 4, orderItems[j].ProductName);
-                    worksheet.SetValue(j + 2, 5, orderItems[j].Quantity);
-                    worksheet.SetValue(j + 2, 6, orderItems[j].UnitPrice);
+                    int i = 1;
+                    foreach (var prop in orderItems[j].GetType().GetProperties())       // Проходим по каждому
+                    {                                                                   // из полей текущего orderItem
+                        worksheet.SetValue(j + 2, i, prop.GetValue(orderItems[j]));     // и записываем его значение 
+                        ++i;                                                            // в соответствующую 
+                    }                                                                   // ячейку
                     var quanity = worksheet.Cells[j + 2, 5].Address;
                     var price = worksheet.Cells[j + 2, 6].Address;
-                    worksheet.Cells[j + 2, 7].Formula = string.Format("({0}*{1})", quanity, price);
+                    worksheet.Cells[j + 2, orderItems[i].GetType().GetProperties().Length + 1].Formula = string.Format("({0}*{1})", quanity, price);
                 }
                 excelPackage.Save();
             }

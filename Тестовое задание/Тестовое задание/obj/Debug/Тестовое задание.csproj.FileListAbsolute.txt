@@ -13,7 +13,6 @@ C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестов
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\System.Web.Webpages.Razor.xml
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\System.Web.Helpers.xml
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\System.Web.Mvc.xml
-C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\obj\Debug\Тестовое задание.csprojResolveAssemblyReference.cache
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\obj\Debug\Тестовое задание.dll
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\obj\Debug\Тестовое задание.pdb
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\EntityFramework.dll
@@ -24,3 +23,4 @@ C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестов
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\AutoMapper.xml
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\EPPlus.dll
 C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\bin\EPPlus.xml
+C:\Users\Mikhail\Source\Repos\fuse8\Тестовое задание\Тестовое задание\obj\Debug\Тестовое задание.csprojResolveAssemblyReference.cache

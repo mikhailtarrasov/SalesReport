@@ -11,7 +11,7 @@ namespace Тестовое_задание.Models
         [Display(Name = "Номер заказа")]
         public int OrderId { get; set; }
         [Display(Name = "Дата заказа")]
-        public DateTime OrderDate { get; set; }         
+        public string OrderDate { get; set; }         
         [Display(Name = "Артикул товара")]
         public int ProductId { get; set; }              
         [Display(Name = "Название товара")]

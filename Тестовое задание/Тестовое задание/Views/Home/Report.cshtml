@@ -1,36 +1,73 @@
 ﻿@using Тестовое_задание.Models
-@*@model OrderItem*@
-@model IEnumerable<OrderItem>
+@using Тестовое_задание.Helpers
+@model ReportPageViewModel
 @{
     ViewBag.Title = "Report";
 }
 
 <h2>Отчет по продажам</h2>
 
-<p>Отчетный период: @ViewBag.reportPeriod.StartDate.ToShortDateString()г. - @ViewBag.reportPeriod.EndDate.ToShortDateString()г.</p>
+<p>Отчетный период: @Model.ReportingPeriod.StartDate.Value.ToShortDateString()г. - @Model.ReportingPeriod.EndDate.Value.ToShortDateString()г.</p>
+
+<hr/>
+@using (Html.BeginForm("Report", "Home", FormMethod.Post, new { @class = "form-inline" }))
+{
+    <input type="hidden" value="@Model.ReportingPeriod.StartDate" name="startDate" />
+    <input type="hidden" value="@Model.ReportingPeriod.EndDate" name="endDate" />
+    <input type="hidden" value="@Model.PageInfo.PageSize" name="pageSize" />
+    <input type="hidden" value="@Model.PageInfo.PageNumber" name="pageNumber" />
+    <input type="hidden" value="@Model.PageInfo.TotalItems" name="totalItems" />
+    <input type="hidden" value="@Model.PageInfo.TotalPages" name="totalPages" />
+
+    <div class="form-group">
+        <label for="inputEmail">Отправить отчёт </label>
+        <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" required="required">
+    </div>
+    <button type="submit" class="btn btn-default">Отправить</button>
+    <br/>
+    <div @if (ViewBag.ResultSending.Key == "success")
+         {
+             @:class="alert alert-success"
+         }
+         else
+         {
+             if (ViewBag.ResultSending.Key == "error")
+             {
+                 @:class="alert alert-danger"
+             }
+             else
+             {
+                 @:style="display: none;"
+             }
+         } role="alert" style="margin-top: 20px; margin-bottom: 0px !important;">@ViewBag.ResultSending.Value</div>
+}
+<br />
 
 <table class="table table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.OrderId)
+            @Html.DisplayNameFor(model => model.OrderItems.FirstOrDefault().OrderId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OrderDate)
+            @Html.DisplayNameFor(model => model.OrderItems.FirstOrDefault().OrderDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductId)
+            @Html.DisplayNameFor(model => model.OrderItems.FirstOrDefault().ProductId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductName)
+            @Html.DisplayNameFor(model => model.OrderItems.FirstOrDefault().ProductName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UnitPrice)
+            @Html.DisplayNameFor(model => model.OrderItems.FirstOrDefault().UnitPrice)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.OrderItems.FirstOrDefault().Quantity)
+        </th>
+        <th>
+            @Html.DisplayName("Сумма")
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.OrderItems)
     {
         <tr>
             <td>
@@ -51,6 +88,24 @@
             <td>
                 @Html.DisplayFor(model => item.Quantity)
             </td>
+            <td>
+                @{ var sum = (item.Quantity * item.UnitPrice).ToString("N"); }          
+                @sum
+            </td>
         </tr>
     }
 </table>
+<br /> 
+@if (Model.PageInfo.TotalPages > 1)
+{
+    <p style="text-align: center">Страница @(Model.PageInfo.PageNumber) из @Model.PageInfo.TotalPages</p>
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Report", new
+    {
+        startDate = Model.ReportingPeriod.StartDate.Value,
+        endDate = Model.ReportingPeriod.EndDate.Value,
+        pageSize = Model.PageInfo.PageSize,
+        totalItems = Model.PageInfo.TotalItems,
+        totalPages = Model.PageInfo.TotalPages,
+        page = x
+    }))
+}

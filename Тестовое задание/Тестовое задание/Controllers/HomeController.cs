@@ -102,7 +102,8 @@ namespace Тестовое_задание.Controllers
 
             Mapper.Initialize(cfg => cfg.CreateMap<OrderDetail, OrderItem>()
                 .ForMember(x => x.OrderDate, x => x.MapFrom(od => od.Order.OrderDate.Value.ToShortDateString()))
-                .ForMember(x => x.ProductName, x => x.MapFrom(od => od.Product.Name)));       // Нужно ли учитывать скидку здесь?
+                .ForMember(x => x.ProductName, x => x.MapFrom(od => od.Product.Name))
+                .ForMember(x => x.UnitPrice, x => x.MapFrom(od => od.UnitPrice * (1 - (decimal)od.Discount.Value))));       // С учётом скидки
 
             List<OrderItem> orderItems = new List<OrderItem>();
             foreach (var orderDetail in dbItems)
